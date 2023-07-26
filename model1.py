@@ -1,13 +1,12 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
-import pickle
+import joblib
 from datetime import datetime
 
 
 # Load the trained model and preprocessor from ensemble_model.pkl
-with open('ensemble_model.pkl', 'rb') as file:
-    model_data = pickle.load(file)
+joblib.load('ensemble_model.pkl')
 
 clf = model_data['model']
 preprocessor = model_data['preprocessor']
