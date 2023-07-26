@@ -6,7 +6,8 @@ from datetime import datetime
 
 
 # Load the trained model and preprocessor from ensemble_model.pkl
-joblib.load('ensemble_model.pkl')
+with open('ensemble_model.pkl', 'rb') as file:
+    model_data = joblib.load(file)
 
 clf = model_data['model']
 preprocessor = model_data['preprocessor']
