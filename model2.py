@@ -32,5 +32,9 @@ y_new_result_pred = y_new_pred[:, 1]
 new_data['Analysis Result Prediction'] = y_new_analysis_result_pred
 new_data['Result Prediction'] = y_new_result_pred
 
-# Save the new_data DataFrame with predictions to a new CSV file
-new_data.to_csv("new_data_with_predictions.csv", index=False)
+# Save the DataFrame with the new 'Result' column to a new CSV file
+current_date = datetime.now().strftime("%Y%m%d")
+output_file_path = f'output_data_{current_date}.csv'
+new_data.to_csv(output_file_path, index=False)
+
+print(f"Predictions saved to '{output_file_path}'.")
