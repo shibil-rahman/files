@@ -1,10 +1,49 @@
 import pandas as pd
 import joblib
 from datetime import datetime
+import csv
+import os
+import json
+import re
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import RobustScaler
+
+
+def keep_rows_between(input_file, output_file, start_value, end_value):
+    with open(input_file, 'r', newline='') as infile, open(output_file, 'w', newline='') as outfile:
+        reader = csv.reader(infile)
+        writer = csv.writer(outfile)
+        
+        rows_to_keep = []
+        keep_mode = False
+        
+        for row in reader:
+            if start_value in row:
+                keep_mode = True
+            if keep_mode and (start_value not in row and end_value not in row):
+                rows_to_keep.append(row)
+            if end_value in row:
+                keep_mode = False
+        
+        writer.writerows(rows_to_keep)
+        
+input_file_path = 'Report_Static_jazzcalm_workspace_2023-02-17_04-22-33_2023-03-02-2.csv'
+output_file_path = 'new_main.csv'
+
+start_value = 'Issue Attributes:'
+end_value = 'Fix Group Attributes:'
+keep_rows_between(input_file_path, output_file_path, start_value, end_value)
+
+df = pd.read_csv('new_main.csv')
+# OR drop rows with NaN values
+df = df.dropna(subset=['Severity Id']).astype({'Severity Id': int})
+coloumnlist = ["Severity Id","Issue Type Name" ,"Threat Class", "Security Risk", "Cause"]
+df = df[coloumnlist].drop_duplicates().fillna('').reset_index(drop=True)
 
 # Load the new dataset and preprocess it
-new_data = pd.read_csv("main2.csv")
-new_data.fillna('', inplace=True)
+new_data = df
 X_new_text = new_data.drop(columns=['Unnamed: 0', 'Severity Id'])  # Exclude the output columns if present
 X_new_numerical = new_data[['Severity Id']]
 
