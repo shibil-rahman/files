@@ -44,7 +44,7 @@ df = df[coloumnlist].drop_duplicates().fillna('').reset_index(drop=True)
 
 # Load the new dataset and preprocess it
 new_data = df
-X_new_text = new_data.drop(columns=['Unnamed: 0', 'Severity Id'])  # Exclude the output columns if present
+X_new_text = new_data.drop(columns=['Severity Id'])  # Exclude the output columns if present
 X_new_numerical = new_data[['Severity Id']]
 
 # Load the previously fitted encoder and transform the numerical features of the new data
