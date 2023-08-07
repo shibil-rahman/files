@@ -3,7 +3,7 @@ import joblib
 from datetime import datetime
 
 # Load the new dataset and preprocess it
-new_data = pd.read_csv("5_DATA.csv")
+new_data = pd.read_csv("main2.csv")
 new_data.fillna('', inplace=True)
 X_new_text = new_data.drop(columns=['Unnamed: 0', 'Severity Id'])  # Exclude the output columns if present
 X_new_numerical = new_data[['Severity Id']]
