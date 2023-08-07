@@ -73,8 +73,8 @@ new_data['Analysis Result Prediction'] = y_new_analysis_result_pred
 new_data['Result Prediction'] = y_new_result_pred
 
 # Save the DataFrame with the new 'Result' column to a new CSV file
-current_date = datetime.now().strftime("%Y%m%d")
-output_file_path = f'output_data_{current_date}.csv'
+current_datetime = datetime.now().strftime("%Y%m%d_%H%M%S")
+output_file_path = f'output_data_{current_datetime}.csv'
 new_data.to_csv(output_file_path, index=False)
 
 print(f"Predictions saved to '{output_file_path}'.")
